@@ -19,7 +19,7 @@ export const empresa = {
 };
 
 /** URL pública del sitio (para SEO). En Vercel, defina NEXT_PUBLIC_SITIO_URL. */
-export const sitioUrl = (process.env.NEXT_PUBLIC_SITIO_URL || "http://localhost:3000").replace(/\/$/, "");
+export const sitioUrl = (process.env.NEXT_PUBLIC_SITIO_URL?.trim() || "http://localhost:3000").replace(/\/$/, "");
 
 /** Enlace para escribir "Wolf": WhatsApp si hay número; si no, mensaje directo de Instagram. */
 export function enlaceWolf(): string {

@@ -52,7 +52,7 @@ function origenValido(req: Request): boolean {
   if (host) permitidos.add(host);
   if (process.env.NEXT_PUBLIC_SITIO_URL) {
     try {
-      permitidos.add(new URL(process.env.NEXT_PUBLIC_SITIO_URL).host);
+      permitidos.add(new URL(process.env.NEXT_PUBLIC_SITIO_URL.trim()).host);
     } catch {
       /* URL mal configurada: se ignora */
     }

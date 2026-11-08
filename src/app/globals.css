@@ -15,71 +15,163 @@
   --color-electrico-600: #0284c7;
 
   --color-hielo: #e6f1ff;
-  --color-acero: #94a3b8;
+  --color-acero: #9fb0c8;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --ease-salida: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-noche-950 text-hielo font-sans antialiased;
+    @apply bg-noche-950 font-sans text-hielo antialiased;
+    text-rendering: optimizeLegibility;
   }
   ::selection {
     @apply bg-electrico-400 text-noche-950;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-electrico-400;
+    @apply rounded-sm outline-2 outline-offset-4 outline-electrico-400;
   }
   section[id] {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 5.5rem;
   }
 }
 
+/* ───────── Utilidades de diseño ───────── */
 @utility contenedor {
   @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
-@utility boton {
-  @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-base font-semibold transition-colors duration-200;
-}
-@utility boton-primario {
-  @apply boton bg-electrico-400 text-noche-950 hover:bg-electrico-300;
-}
-@utility boton-borde {
-  @apply boton border border-hielo/25 text-hielo hover:border-electrico-400 hover:text-electrico-300;
+@utility seccion {
+  @apply py-20 sm:py-28;
 }
 @utility ceja {
-  @apply font-mono text-xs font-semibold tracking-[0.2em] text-electrico-400 uppercase;
+  @apply inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.2em] text-electrico-400 uppercase;
 }
 @utility titulo-seccion {
-  @apply font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl;
+  @apply font-display text-3xl leading-tight font-bold tracking-tight text-balance text-white sm:text-4xl lg:text-[2.75rem];
+}
+@utility subtitulo {
+  @apply text-lg leading-relaxed text-pretty text-hielo/70;
 }
 @utility tarjeta {
-  @apply rounded-xl border border-linea bg-noche-850/70;
+  @apply rounded-2xl border border-linea bg-noche-850/70;
+}
+
+/* ───────── Botones ───────── */
+@utility boton {
+  @apply relative inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-semibold whitespace-nowrap transition-all duration-200 ease-out select-none active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60;
+}
+@utility boton-primario {
+  @apply boton bg-electrico-400 text-noche-950 shadow-[0_0_0_1px_rgb(125_211_252/0.4),0_8px_30px_-8px_rgb(56_189_248/0.6)] hover:-translate-y-0.5 hover:bg-electrico-300 hover:shadow-[0_0_0_1px_rgb(186_230_253/0.6),0_14px_40px_-10px_rgb(56_189_248/0.8)];
+}
+@utility boton-borde {
+  @apply boton border border-hielo/20 bg-white/[0.03] text-hielo backdrop-blur-sm hover:-translate-y-0.5 hover:border-electrico-400/70 hover:bg-electrico-400/10 hover:text-white;
+}
+@utility boton-texto {
+  @apply inline-flex items-center gap-1.5 rounded-sm font-semibold text-electrico-300 transition-colors hover:text-electrico-200;
 }
 
 /* Fondo con cuadrícula sutil */
 .cuadricula {
   background-image:
-    linear-gradient(to right, rgb(56 189 248 / 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(56 189 248 / 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgb(56 189 248 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(56 189 248 / 0.07) 1px, transparent 1px);
   background-size: 56px 56px;
+}
+
+/* Texto con degradado */
+.texto-brillo {
+  background: linear-gradient(100deg, #bae6fd 0%, #38bdf8 45%, #0ea5e9 60%, #bae6fd 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brillo 6s linear infinite;
+}
+@keyframes brillo {
+  to { background-position: -200% center; }
+}
+
+/* Tarjetas con luz que sigue el cursor (ver EfectosPagina) */
+.foco {
+  position: relative;
+  isolation: isolate;
+}
+.foco::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(56 189 248 / 0.13), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.foco:hover::before { opacity: 1; }
+
+/* Aparición al desplazarse: solo si hay JavaScript (clase .js en <html>) */
+.js [data-revelar] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s var(--ease-salida),
+    transform 0.8s var(--ease-salida);
+  transition-delay: var(--retraso, 0ms);
+}
+.js [data-revelar].visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Filas del panel del hero */
+@keyframes entrar {
+  from { opacity: 0; transform: translateX(-10px); }
+}
+.fila-panel {
+  animation: entrar 0.6s var(--ease-salida) both;
+  animation-delay: calc(var(--i) * 450ms + 700ms);
 }
 
 @keyframes pulso {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 1; }
 }
-.pulso {
-  animation: pulso 2.4s ease-in-out infinite;
+.pulso { animation: pulso 2.4s ease-in-out infinite; }
+
+@keyframes flotar {
+  0%, 100% { transform: translate(-50%, 0) scale(1); }
+  50% { transform: translate(-46%, 24px) scale(1.06); }
 }
+.orbe { animation: flotar 14s ease-in-out infinite; }
+
+/* Cinta de tecnologías */
+@keyframes desplazar {
+  to { transform: translateX(-50%); }
+}
+.cinta { animation: desplazar 40s linear infinite; }
+.cinta:hover { animation-play-state: paused; }
+
+/* Preguntas frecuentes */
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .icono-mas { transform: rotate(45deg); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .pulso { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js [data-revelar] { opacity: 1; transform: none; }
+  .cinta { animation: none; }
 }

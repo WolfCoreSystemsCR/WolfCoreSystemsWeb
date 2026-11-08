@@ -1,22 +1,26 @@
-// Logo temporal en SVG. Reemplazar por el logo oficial (public/img/logo.png) cuando esté disponible.
+import Image from "next/image";
+import lobo from "../../public/img/lobo.png";
+
+/** Logo oficial: cabeza del lobo + nombre en texto (nítido en cualquier tamaño). */
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <svg viewBox="0 0 64 64" aria-hidden="true" className="h-9 w-9 shrink-0">
-        <defs>
-          <linearGradient id="lobo" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#bae6fd" />
-            <stop offset="1" stopColor="#0284c7" />
-          </linearGradient>
-        </defs>
-        <path d="M10 8l12 14h20L54 8l-2 26-20 24-20-24z" fill="url(#lobo)" />
-        <path d="M22 22h20l-10 17z" fill="#03050b" />
-        <circle cx="23" cy="30" r="2.2" fill="#e6f1ff" />
-        <circle cx="41" cy="30" r="2.2" fill="#e6f1ff" />
-      </svg>
+    <span className={`inline-flex items-center gap-2 ${className}`}>
+      {/* Sin marco: los bordes se desvanecen para fundirse con el fondo */}
+      <Image
+        src={lobo}
+        alt=""
+        width={64}
+        height={64}
+        priority
+        className="-my-2 h-16 w-16 shrink-0 [mask-image:radial-gradient(circle_at_52%_50%,black_50%,transparent_72%)] sm:h-[4.5rem] sm:w-[4.5rem]"
+      />
       <span className="leading-none">
-        <span className="block font-display text-lg font-extrabold tracking-wide text-white">WOLFCORE</span>
-        <span className="block font-mono text-[0.6rem] tracking-[0.42em] text-electrico-300">SYSTEMS</span>
+        <span className="block font-display text-xl font-extrabold tracking-wide text-white sm:text-2xl">
+          WOLF<span className="text-electrico-400">CORE</span>
+        </span>
+        <span className="mt-1.5 block font-mono text-[0.68rem] tracking-[0.5em] text-electrico-300 sm:text-xs">
+          SYSTEMS
+        </span>
       </span>
     </span>
   );

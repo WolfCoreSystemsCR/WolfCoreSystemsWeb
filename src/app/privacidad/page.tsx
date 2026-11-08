@@ -14,7 +14,7 @@ export default function Privacidad() {
   return (
     <>
       <header className="border-b border-linea">
-        <div className="contenedor flex h-18 items-center justify-between">
+        <div className="contenedor flex h-20 items-center justify-between">
           <a href="/" aria-label="WolfCore Systems, volver al inicio">
             <Logo />
           </a>

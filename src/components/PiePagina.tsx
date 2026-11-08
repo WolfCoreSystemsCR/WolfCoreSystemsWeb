@@ -1,5 +1,6 @@
-import { Logo } from "./Logo";
+import Image from "next/image";
 import { Icono } from "./Icono";
+import logoCompleto from "../../public/img/logo-wolfcore.png";
 import { empresa } from "@/lib/empresa";
 
 const columnas = [
@@ -28,8 +29,14 @@ export function PiePagina() {
     <footer className="border-t border-linea bg-noche-900">
       <div className="contenedor grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
         <div>
-          <a href="/" aria-label="WolfCore Systems, inicio">
-            <Logo />
+          <a href="/" aria-label="WolfCore Systems, inicio" className="inline-block">
+            <Image
+              src={logoCompleto}
+              alt="WolfCore Systems"
+              width={180}
+              height={170}
+              className="h-auto w-44 rounded-2xl ring-1 ring-linea"
+            />
           </a>
           <p className="mt-5 max-w-xs leading-relaxed text-acero">{empresa.lema}</p>
           <a

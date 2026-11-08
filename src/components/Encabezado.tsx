@@ -59,7 +59,7 @@ export function Encabezado() {
         conFondo || abierto ? "border-linea/80 bg-noche-950/85 backdrop-blur-xl" : "border-transparent"
       }`}
     >
-      <div className="contenedor flex h-18 items-center justify-between gap-4">
+      <div className="contenedor flex h-20 items-center justify-between gap-4">
         <a href="#inicio" aria-label="WolfCore Systems, ir al inicio" className="transition-opacity hover:opacity-85">
           <Logo />
         </a>
@@ -109,7 +109,7 @@ export function Encabezado() {
         id="menu-movil"
         aria-label="Menú móvil"
         hidden={!abierto}
-        className="h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-linea bg-noche-950 lg:hidden"
+        className="h-[calc(100dvh-5rem)] overflow-y-auto border-t border-linea bg-noche-950 lg:hidden"
       >
         <ul className="contenedor flex flex-col gap-1 py-6">
           {enlaces.map((e) => (

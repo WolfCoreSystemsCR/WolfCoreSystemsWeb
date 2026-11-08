@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-noche-950: #03050b;
+  --color-noche-900: #060a14;
+  --color-noche-850: #0a1020;
+  --color-noche-800: #0e172b;
+  --color-noche-700: #16223d;
+  --color-linea: #1d2a47;
+
+  --color-electrico-200: #bae6fd;
+  --color-electrico-300: #7dd3fc;
+  --color-electrico-400: #38bdf8;
+  --color-electrico-500: #0ea5e9;
+  --color-electrico-600: #0284c7;
+
+  --color-hielo: #e6f1ff;
+  --color-acero: #94a3b8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-noche-950 text-hielo font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-electrico-400 text-noche-950;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-electrico-400;
+  }
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@utility contenedor {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility boton {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-base font-semibold transition-colors duration-200;
+}
+@utility boton-primario {
+  @apply boton bg-electrico-400 text-noche-950 hover:bg-electrico-300;
+}
+@utility boton-borde {
+  @apply boton border border-hielo/25 text-hielo hover:border-electrico-400 hover:text-electrico-300;
+}
+@utility ceja {
+  @apply font-mono text-xs font-semibold tracking-[0.2em] text-electrico-400 uppercase;
+}
+@utility titulo-seccion {
+  @apply font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl;
+}
+@utility tarjeta {
+  @apply rounded-xl border border-linea bg-noche-850/70;
+}
+
+/* Fondo con cuadrícula sutil */
+.cuadricula {
+  background-image:
+    linear-gradient(to right, rgb(56 189 248 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(56 189 248 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@keyframes pulso {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.pulso {
+  animation: pulso 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pulso { animation: none; }
+}

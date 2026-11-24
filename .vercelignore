@@ -1,0 +1,8 @@
+# Lo que NUNCA se sube a Vercel al publicar desde la terminal
+documentos/
+.env
+.env.*
+!.env.example
+.claude/
+.vercel/
+*.log

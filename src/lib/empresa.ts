@@ -202,17 +202,6 @@ export const cifras = [
   { valor: "CR", etiqueta: "Hecho en Costa Rica" },
 ];
 
-// [CONFIRMAR] Mostrar solo proyectos con permiso del cliente.
-export const proyectos = [
-  {
-    categoria: "Salud y servicios sociales",
-    titulo: "Expedientes digitales para un centro diurno de adultos mayores",
-    texto:
-      "Reemplazó carpetas de papel por un sistema web con roles y permisos, asistencia diaria, información médica confidencial, planes de atención y una página pública que el centro edita sin ayuda.",
-    etiquetas: ["Next.js", "PostgreSQL", "Seguridad por roles", "Ley 8968"],
-  },
-];
-
 export const modalidades = [
   {
     etiqueta: "Proyecto",

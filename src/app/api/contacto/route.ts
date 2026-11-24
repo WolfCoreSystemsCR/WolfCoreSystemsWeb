@@ -60,6 +60,28 @@ function origenValido(req: Request): boolean {
   return permitidos.has(hostOrigen);
 }
 
+/**
+ * Lee el cuerpo por partes y corta apenas pasa el límite. Así un envío gigante sin
+ * "content-length" (o con uno falso) no llega a cargarse entero en memoria.
+ */
+async function leerCuerpo(req: Request): Promise<string | null> {
+  if (!req.body) return "";
+  const lector = req.body.getReader();
+  const partes: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await lector.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > MAX_BYTES) {
+      await lector.cancel();
+      return null;
+    }
+    partes.push(value);
+  }
+  return Buffer.concat(partes).toString("utf8");
+}
+
 /** Texto de una sola línea: sin caracteres de control ni saltos. */
 function linea(v: unknown, max: number): string {
   if (typeof v !== "string") return "";
@@ -90,8 +112,8 @@ export async function POST(req: Request) {
 
   let datos: Record<string, unknown>;
   try {
-    const texto = await req.text();
-    if (Buffer.byteLength(texto) > MAX_BYTES) return responder({ mensaje: "El mensaje es demasiado largo." }, 413);
+    const texto = await leerCuerpo(req);
+    if (texto === null) return responder({ mensaje: "El mensaje es demasiado largo." }, 413);
     const parsed: unknown = JSON.parse(texto);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("no es objeto");
     datos = parsed as Record<string, unknown>;

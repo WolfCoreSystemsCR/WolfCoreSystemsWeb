@@ -18,7 +18,10 @@ export function Vitrina() {
 
   // En celular se muestra de entrada la versión para celular
   useEffect(() => {
-    if (window.innerWidth < 768) setModo("cel");
+    if (window.innerWidth < 768) {
+      setCargando(true);
+      setModo("cel");
+    }
   }, []);
 
   // Escala la página de 1280 px para que quepa en el recuadro
@@ -73,7 +76,12 @@ export function Vitrina() {
               key={m}
               type="button"
               aria-pressed={modo === m}
-              onClick={() => setModo(m)}
+              onClick={() => {
+                if (m === modo) return;
+                // Cambiar de modo vuelve a cargar el iframe: se muestra el indicador de carga
+                setCargando(true);
+                setModo(m);
+              }}
               className={`min-h-10 rounded-full px-4 text-sm font-semibold transition-colors ${
                 modo === m ? "bg-white text-noche-950" : "text-hielo/70 hover:text-white"
               }`}

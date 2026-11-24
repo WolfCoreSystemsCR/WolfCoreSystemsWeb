@@ -24,6 +24,11 @@
   --ease-salida: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+/* "inline": la fuente con serifa solo existe dentro de /ejemplos, así se resuelve ahí */
+@theme inline {
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -153,12 +158,63 @@
 }
 .orbe { animation: flotar 14s ease-in-out infinite; }
 
-/* Cinta de tecnologías */
-@keyframes desplazar {
+/* Cursor de la palabra que se escribe en el título */
+@keyframes parpadeo {
+  50% { opacity: 0; }
+}
+.cursor-escribir::after {
+  content: "";
+  display: inline-block;
+  width: 0.08em;
+  height: 0.9em;
+  margin-left: 0.06em;
+  vertical-align: -0.08em;
+  background: var(--color-electrico-400);
+  animation: parpadeo 1s steps(1) infinite;
+}
+
+/* Piso de cuadrícula en perspectiva (escena de pantallas) */
+@keyframes avanzar-piso {
+  to { background-position: 0 64px; }
+}
+.piso {
+  background-image:
+    linear-gradient(to right, rgb(56 189 248 / 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(56 189 248 / 0.22) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(420px) rotateX(62deg);
+  transform-origin: 50% 0;
+  animation: avanzar-piso 3s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent, black 25%, black 60%, transparent);
+}
+
+/* Entrada suave al cargar (páginas de muestra) */
+@keyframes subir {
+  from { opacity: 0; transform: translateY(24px); }
+}
+.aparecer {
+  animation: subir 1s var(--ease-salida) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes acercar {
+  from { transform: scale(1.12); }
+}
+.acercar { animation: acercar 2.4s var(--ease-salida) both; }
+
+/* Página de muestra de trading */
+@keyframes desplazar-cinta {
   to { transform: translateX(-50%); }
 }
-.cinta { animation: desplazar 40s linear infinite; }
-.cinta:hover { animation-play-state: paused; }
+@keyframes crecer-vela {
+  from { transform: scaleY(0); opacity: 0; }
+}
+
+/* Pestañas de la vitrina */
+.pestana[aria-selected="true"] {
+  background: var(--color-electrico-400);
+  color: var(--color-noche-950);
+  border-color: transparent;
+}
 
 /* Preguntas frecuentes */
 details > summary { list-style: none; }
@@ -173,5 +229,5 @@ details[open] .icono-mas { transform: rotate(45deg); }
     transition-duration: 0.01ms !important;
   }
   .js [data-revelar] { opacity: 1; transform: none; }
-  .cinta { animation: none; }
+  .piso { animation: none; }
 }

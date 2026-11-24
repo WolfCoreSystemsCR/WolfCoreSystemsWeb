@@ -4,9 +4,9 @@
 
 export const empresa = {
   nombre: "WolfCore Systems",
-  lema: "Automatización, apps y sistemas para escalar su negocio al mejor precio.",
+  lema: "Páginas web premium y automatización para negocios que quieren verse como lo que valen.",
   descripcion:
-    "Desarrollo de software a la medida en Costa Rica: automatización de procesos, aplicaciones web y móviles, chatbots para WhatsApp e integraciones para pymes.",
+    "Diseño web premium, citas automáticas y atención por WhatsApp para clínicas estéticas, clínicas dentales, inmobiliarias y negocios de alto nivel en Escazú, Santa Ana, Pinares y Belén, Costa Rica.",
   instagram: "https://www.instagram.com/wolfcoresystems",
   instagramUsuario: "@wolfcoresystems",
   instagramMensaje: "https://ig.me/m/wolfcoresystems",
@@ -49,97 +49,109 @@ export type IconoNombre =
   | "moneda";
 
 // [CONFIRMAR] Beneficios que se muestran bajo el título principal.
-export const beneficios = ["Primera asesoría sin costo", "Cotización en colones o dólares", "Pago por etapas"];
+export const beneficios = ["Diseño 100 % original", "Primera asesoría sin costo", "Pago por etapas"];
 
-export const tecnologias = [
-  "Next.js",
-  "Node.js",
-  "React",
-  "TypeScript",
-  "PostgreSQL",
-  "WhatsApp Business API",
-  "Inteligencia artificial",
-  "Facturación electrónica",
-  "Android e iOS",
-  "Google Workspace",
-  "Pagos en línea",
-  "Vercel",
+/** Palabras que rotan en el título principal: los nichos en los que nos enfocamos. */
+export const nichosTitulo = [
+  "clínica estética",
+  "clínica dental",
+  "inmobiliaria",
+  "bufete",
+  "veterinaria",
+  "academia",
 ];
 
-export const problemas: { icono: IconoNombre; problema: string; solucion: string }[] = [
+/** Páginas de muestra (rutas en /ejemplos). Son diseños ficticios hechos por WolfCore Systems. */
+export const demos = [
+  { slug: "estetica", nicho: "Clínica estética", marca: "Velora", dominio: "velora-estetica.cr" },
+  { slug: "dental", nicho: "Clínica dental", marca: "Bruma Dental", dominio: "brumadental.cr" },
+  { slug: "inmobiliaria", nicho: "Inmobiliaria", marca: "Cumbre Residences", dominio: "cumbreresidences.cr" },
+  { slug: "abogados", nicho: "Bufete", marca: "Mirador Legal", dominio: "miradorlegal.cr" },
+  { slug: "veterinaria", nicho: "Veterinaria", marca: "Aldea Vet", dominio: "aldeavet.cr" },
+  { slug: "trading", nicho: "Trading", marca: "Kappa Mercados", dominio: "kappamercados.com" },
+] as const;
+
+/** Clientes ideales en Escazú, Santa Ana, Pinares y Belén. */
+export const nichos: { icono: IconoNombre; titulo: string; porque: string; vendemos: string }[] = [
+  {
+    icono: "rayo",
+    titulo: "Clínicas estéticas",
+    porque: "Cada paciente vale cientos de dólares y casi todos llegan buscando en Google o Instagram.",
+    vendemos: "Página de lujo + agenda de valoraciones por WhatsApp las 24 horas.",
+  },
   {
     icono: "chat",
-    problema: "Pedidos y consultas perdidos entre chats de WhatsApp.",
-    solucion: "Un asistente que responde al instante, toma el pedido y lo registra solo.",
+    titulo: "Clínicas dentales",
+    porque: "Costa Rica recibe miles de pacientes extranjeros al año para implantes y diseño de sonrisa.",
+    vendemos: "Sitio bilingüe para turismo dental + seguimiento de pacientes.",
   },
   {
-    icono: "caja",
-    problema: "Inventario y ventas en hojas de Excel que nadie actualiza.",
-    solucion: "Un sistema en la nube con inventario, ventas y reportes al día.",
+    icono: "web",
+    titulo: "Inmobiliarias y desarrolladores",
+    porque: "Venden propiedades de cientos de miles de dólares; una buena presentación cierra negocios.",
+    vendemos: "Catálogo de propiedades elegante + captación de compradores.",
   },
   {
-    icono: "factura",
-    problema: "Horas haciendo facturas, cobros y recordatorios a mano.",
-    solucion: "Facturas, cobros y avisos que se envían automáticamente.",
+    icono: "escudo",
+    titulo: "Bufetes y notarías",
+    porque: "Residencias, sociedades y bienes raíces para extranjeros: clientes que pagan por confianza.",
+    vendemos: "Web sobria y bilingüe + filtro de consultas que ahorra horas.",
   },
   {
     icono: "calendario",
-    problema: "Citas por teléfono, choques de horario y clientes que no llegan.",
-    solucion: "Agenda en línea con confirmación y recordatorio automático.",
+    titulo: "Veterinarias premium",
+    porque: "En la zona oeste las mascotas son familia y sus dueños invierten en lo mejor.",
+    vendemos: "Página cálida + citas, vacunas y recordatorios automáticos.",
   },
   {
     icono: "grafico",
-    problema: "No sabe con certeza cuánto vende ni qué le deja ganancia.",
-    solucion: "Un panel con sus números claros, desde el celular.",
-  },
-  {
-    icono: "reloj",
-    problema: "Usted hace todo y el negocio no crece sin usted presente.",
-    solucion: "Procesos ordenados que funcionan aunque usted no esté.",
+    titulo: "Educación financiera y trading",
+    porque: "Academias y mentores venden cursos y membresías de alto valor en línea.",
+    vendemos: "Web informativa con credibilidad + venta de cursos y comunidad.",
   },
 ];
 
 export const servicioPrincipal = {
-  titulo: "Sistemas a la medida que mueven su negocio",
+  titulo: "Páginas web premium que atraen clientes",
   texto:
-    "Diseñamos y construimos el software que su operación necesita, desde la idea hasta el lanzamiento, pensado para crecer con usted.",
+    "Diseñamos su página desde cero, con la imagen que su negocio merece, para que el cliente confíe en usted antes de escribirle.",
   puntos: [
-    "Análisis, diseño, desarrollo e integración de punta a punta.",
-    "Entregas por etapas con avances que usted puede probar.",
-    "Listo para escalar: más clientes, más sucursales, más datos.",
+    "Diseño original, con animaciones y fotos que transmiten calidad.",
+    "Pensada para el celular, que es donde lo buscan sus clientes.",
+    "Lista para aparecer en Google y recibir consultas por WhatsApp.",
   ],
 };
 
 export const servicios: { icono: IconoNombre; titulo: string; texto: string }[] = [
   {
-    icono: "rayo",
-    titulo: "Automatización de procesos",
-    texto: "Elimine tareas repetitivas: facturas, recordatorios, reportes y seguimientos que se hacen solos.",
+    icono: "calendario",
+    titulo: "Citas que se agendan solas",
+    texto: "Sus clientes reservan a cualquier hora y reciben confirmación y recordatorio. Menos ausencias, más ventas.",
   },
   {
     icono: "bot",
-    titulo: "Chatbots e inteligencia artificial",
-    texto: "Asistentes que atienden en WhatsApp e Instagram, califican clientes y agendan citas 24/7.",
+    titulo: "Atención por WhatsApp 24/7",
+    texto: "Un asistente que responde al instante, resuelve dudas frecuentes y le pasa solo los clientes listos para comprar.",
   },
   {
-    icono: "web",
-    titulo: "Aplicaciones web",
-    texto: "Paneles internos, portales para clientes y sistemas de gestión desde cualquier lugar.",
+    icono: "grafico",
+    titulo: "Sistema para su negocio",
+    texto: "Todos sus clientes, citas, cobros y seguimientos en un solo lugar, desde el celular o la computadora.",
   },
   {
     icono: "movil",
-    titulo: "Apps móviles",
-    texto: "Aplicaciones para Android y iPhone conectadas con la operación de su negocio.",
+    titulo: "App con su marca",
+    texto: "Su logo en el celular de sus clientes: reservas, promociones y beneficios a un toque.",
   },
   {
-    icono: "enlace",
-    titulo: "Integraciones y APIs",
-    texto: "Conectamos sus herramientas: pagos, facturación electrónica, CRM y hojas de cálculo.",
+    icono: "rayo",
+    titulo: "Procesos automáticos",
+    texto: "Recordatorios, cobros, reportes y seguimientos que se hacen solos mientras usted atiende.",
   },
   {
-    icono: "codigo",
-    titulo: "Páginas web profesionales",
-    texto: "Sitios rápidos y modernos para que su negocio se vea serio y lo encuentren en Google.",
+    icono: "web",
+    titulo: "Más clientes desde Google",
+    texto: "Optimizamos su página y su perfil de Google para que lo encuentren cuando lo buscan.",
   },
 ];
 
@@ -162,13 +174,13 @@ export const proceso = [
 export const pilares = [
   {
     icono: "rayo" as IconoNombre,
-    titulo: "Una solución, no diez herramientas",
-    texto: "Unimos ventas, clientes, inventario y reportes en un solo sistema hecho para su forma de trabajar.",
+    titulo: "Diseño que vende, no plantillas",
+    texto: "Cada página se diseña desde cero para su marca. Su cliente lo nota y confía más en usted.",
   },
   {
     icono: "escudo" as IconoNombre,
     titulo: "Seguro y hecho para crecer",
-    texto: "Buenas prácticas de seguridad y código ordenado desde el día uno, para que nada se rompa al crecer.",
+    texto: "Su página y los datos de sus clientes protegidos desde el día uno, listos para crecer con usted.",
   },
   {
     icono: "chat" as IconoNombre,

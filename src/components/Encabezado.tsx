@@ -6,9 +6,9 @@ import { Icono } from "./Icono";
 import { enlaceWolf } from "@/lib/empresa";
 
 const enlaces = [
+  { id: "ejemplos", texto: "Ejemplos" },
+  { id: "clientes", texto: "Clientes" },
   { id: "servicios", texto: "Servicios" },
-  { id: "proceso", texto: "Proceso" },
-  { id: "proyectos", texto: "Proyectos" },
   { id: "planes", texto: "Planes" },
   { id: "preguntas", texto: "Preguntas" },
 ];

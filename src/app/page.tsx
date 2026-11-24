@@ -1,10 +1,13 @@
 import { BotonFlotante } from "@/components/BotonFlotante";
 import { EfectosPagina } from "@/components/EfectosPagina";
 import { Encabezado } from "@/components/Encabezado";
+import { EscenaPantallas } from "@/components/EscenaPantallas";
 import { FormularioContacto } from "@/components/FormularioContacto";
 import { Icono } from "@/components/Icono";
-import { PanelAutomatizacion } from "@/components/PanelAutomatizacion";
+import { LoboParticulas } from "@/components/LoboParticulas";
+import { PalabraRotativa } from "@/components/PalabraRotativa";
 import { PiePagina } from "@/components/PiePagina";
+import { Vitrina } from "@/components/Vitrina";
 import {
   beneficios,
   canalWolf,
@@ -12,14 +15,13 @@ import {
   empresa,
   enlaceWolf,
   modalidades,
+  nichos,
+  nichosTitulo,
   pilares,
   preguntas,
-  problemas,
   proceso,
-  proyectos,
   servicioPrincipal,
   servicios,
-  tecnologias,
 } from "@/lib/empresa";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
@@ -62,42 +64,51 @@ export default function Inicio() {
 
       <main id="contenido">
         {/* ───────── Inicio ───────── */}
-        <section id="inicio" className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24">
+        <section id="inicio" className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-12">
           <div
-            className="cuadricula absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
+            className="cuadricula absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_80%_70%_at_70%_40%,black,transparent)]"
             aria-hidden="true"
           />
           <div
-            className="orbe absolute top-[-10rem] left-1/2 -z-10 h-[40rem] w-[64rem] rounded-full bg-electrico-600/25 blur-[130px]"
+            className="absolute top-1/2 right-[-10%] -z-10 h-[46rem] w-[46rem] -translate-y-1/2 rounded-full bg-electrico-600/20 blur-[140px]"
             aria-hidden="true"
           />
 
-          <div className="contenedor">
-            <div className="mx-auto max-w-4xl text-center">
+          <div className="contenedor grid items-center gap-6 lg:grid-cols-[1.05fr_1fr]">
+            <div className="relative z-10 order-2 lg:order-1">
               <p className="inline-flex items-center gap-2 rounded-full border border-electrico-400/30 bg-electrico-400/10 px-4 py-1.5 text-sm font-medium text-electrico-200">
                 <span className="pulso h-2 w-2 rounded-full bg-electrico-400" aria-hidden="true" />
-                Software a la medida para pymes en Costa Rica
+                Escazú · Santa Ana · Pinares · Belén
               </p>
-              <h1 className="mt-7 font-display text-[2.6rem] leading-[1.05] font-extrabold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl">
-                Su negocio no necesita más herramientas.{" "}
-                <span className="texto-brillo">Necesita un sistema.</span>
+              <h1 className="mt-6 font-display text-[2.5rem] leading-[1.04] font-extrabold tracking-tight text-white sm:text-6xl lg:text-[4.2rem]">
+                <span className="sr-only">
+                  Páginas web premium para clínicas estéticas, clínicas dentales, inmobiliarias, bufetes, veterinarias y
+                  academias de trading.
+                </span>
+                <span aria-hidden="true">
+                  Su{" "}
+                  <span className="texto-brillo block min-h-[1.05em] whitespace-nowrap">
+                    <PalabraRotativa palabras={nichosTitulo} />
+                  </span>
+                  merece una página a su altura.
+                </span>
               </h1>
-              <p className="subtitulo mx-auto mt-7 max-w-2xl sm:text-xl">
-                Automatizamos sus procesos, creamos apps y sistemas a la medida para que su negocio venda más, trabaje
-                ordenado y crezca, sin que usted tenga que estar en todo.
+              <p className="subtitulo mt-6 max-w-xl sm:text-xl">
+                Diseñamos páginas web únicas, con animaciones y citas automáticas por WhatsApp, para negocios que quieren
+                verse como lo que valen.
               </p>
 
-              <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a href={enlaceWolf()} target="_blank" rel="noopener noreferrer" className="boton-primario text-lg">
-                  <Icono nombre="mensaje" /> Escriba “Wolf” y empezamos
+                  <Icono nombre="mensaje" /> Cotizar por WhatsApp
                 </a>
-                <a href="#servicios" className="boton-borde group text-lg">
-                  Ver servicios
+                <a href="#ejemplos" className="boton-borde group text-lg">
+                  Ver diseños
                   <Icono nombre="flecha" className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
 
-              <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-hielo/70">
+              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-hielo/70">
                 {beneficios.map((b) => (
                   <li key={b} className="flex items-center gap-1.5">
                     <Icono nombre="check" className="h-4 w-4 text-electrico-400" /> {b}
@@ -106,58 +117,63 @@ export default function Inicio() {
               </ul>
             </div>
 
-            <div className="mt-16 sm:mt-20">
-              <PanelAutomatizacion />
+            <div className="relative order-1 mx-auto -mb-4 aspect-square w-full max-w-[13rem] sm:max-w-[26rem] lg:order-2 lg:mb-0 lg:max-w-none">
+              <LoboParticulas className="h-full w-full" />
+            </div>
+          </div>
+
+          <a
+            href="#ejemplos"
+            className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs tracking-widest text-acero uppercase transition-colors hover:text-electrico-300 sm:flex"
+          >
+            Ver diseños
+            <span className="h-10 w-px animate-pulse bg-gradient-to-b from-electrico-400 to-transparent" aria-hidden="true" />
+          </a>
+        </section>
+
+        {/* ───────── Vitrina de ejemplos ───────── */}
+        <section id="ejemplos" className="seccion border-t border-linea bg-noche-900">
+          <div className="contenedor">
+            <Encabezamiento
+              ceja="Diseños de muestra"
+              titulo={
+                <>
+                  Así se vería <span className="texto-brillo">su página</span>
+                </>
+              }
+              texto="Páginas de ejemplo hechas por WolfCore Systems para negocios de alto nivel. Elija un tipo de negocio y navéguela como lo haría su cliente."
+            />
+            <div className="mt-12" data-revelar>
+              <Vitrina />
             </div>
           </div>
         </section>
 
-        {/* ───────── Cinta de tecnologías ───────── */}
-        <section aria-label="Tecnologías con las que trabajamos" className="border-y border-linea bg-noche-900/60 py-6">
-          <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
-            <ul className="cinta flex w-max gap-3">
-              {[...tecnologias, ...tecnologias].map((t, i) => (
-                <li
-                  key={`${t}-${i}`}
-                  aria-hidden={i >= tecnologias.length}
-                  className="rounded-full border border-linea bg-noche-850 px-4 py-2 font-mono text-sm whitespace-nowrap text-acero"
-                >
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {/* ───────── Escena: se adapta a cada pantalla ───────── */}
+        <EscenaPantallas src="/ejemplos/dental" />
 
-        {/* ───────── Problemas → soluciones ───────── */}
-        <section id="problemas" className="seccion">
+        {/* ───────── Clientes ideales ───────── */}
+        <section id="clientes" className="seccion border-t border-linea">
           <div className="contenedor">
             <Encabezamiento
-              centrado
-              ceja="¿Le suena familiar?"
-              titulo="Lo que hoy le quita tiempo, nosotros lo automatizamos"
-              texto="Estos son los problemas más comunes de las pymes ticas. Si se identifica con alguno, podemos ayudarle."
+              ceja="Especialistas en negocios premium"
+              titulo="Trabajamos con negocios donde cada cliente vale mucho"
+              texto="Nos enfocamos en la zona oeste de San José: negocios donde un solo cliente nuevo paga la página."
             />
             <ul className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {problemas.map((p, i) => (
+              {nichos.map((n, i) => (
                 <li
-                  key={p.problema}
+                  key={n.titulo}
                   data-revelar
                   style={retraso(i % 3)}
-                  className="foco tarjeta flex flex-col overflow-hidden transition-colors hover:border-electrico-400/40"
+                  className="foco tarjeta group flex flex-col p-7 transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-electrico-400/50"
                 >
-                  <div className="flex gap-3 p-6 pb-5">
-                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-red-400/10 text-red-300">
-                      <Icono nombre="x" className="h-4 w-4" />
-                    </span>
-                    <p className="text-hielo/75">{p.problema}</p>
-                  </div>
-                  <div className="mt-auto flex gap-3 border-t border-linea bg-electrico-400/[0.04] p-6 pt-5">
-                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-electrico-400/15 text-electrico-300">
-                      <Icono nombre={p.icono} className="h-4 w-4" />
-                    </span>
-                    <p className="font-medium text-white">{p.solucion}</p>
-                  </div>
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-electrico-400/10 text-electrico-300 ring-1 ring-electrico-400/30 transition-colors group-hover:bg-electrico-400 group-hover:text-noche-950">
+                    <Icono nombre={n.icono} className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-6 font-display text-xl font-semibold text-white">{n.titulo}</h3>
+                  <p className="mt-3 flex-1 leading-relaxed text-hielo/70">{n.porque}</p>
+                  <p className="mt-5 border-t border-linea pt-4 text-sm font-medium text-electrico-200">{n.vendemos}</p>
                 </li>
               ))}
             </ul>
@@ -169,8 +185,8 @@ export default function Inicio() {
           <div className="contenedor">
             <Encabezamiento
               ceja="Servicios"
-              titulo="Todo lo que su negocio necesita para crecer en digital"
-              texto="Desde una automatización puntual hasta un sistema completo. Empezamos por lo que más impacto tiene."
+              titulo="Una página que vende y un negocio que trabaja solo"
+              texto="Usted se enfoca en sus clientes. Nosotros nos encargamos de que lo encuentren, confíen y reserven."
             />
 
             <article
@@ -195,7 +211,7 @@ export default function Inicio() {
                     data-servicio={servicioPrincipal.titulo}
                     className="boton-primario group mt-8 w-full sm:w-auto"
                   >
-                    Cotizar mi sistema
+                    Quiero mi página
                     <Icono nombre="flecha" className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </a>
                 </div>
@@ -246,7 +262,7 @@ export default function Inicio() {
             <Encabezamiento
               centrado
               ceja="Cómo trabajamos"
-              titulo="Un proceso claro, de la idea al resultado"
+              titulo="De la idea a su página publicada"
               texto="Usted sabe en todo momento en qué etapa va su proyecto, cuánto falta y qué sigue."
             />
             <ol className="relative mt-16 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -276,8 +292,8 @@ export default function Inicio() {
               <div className="lg:sticky lg:top-28 lg:self-start">
                 <Encabezamiento
                   ceja="Por qué WolfCore"
-                  titulo="Tecnología seria, trato cercano"
-                  texto="Como una manada: estrategia, fuerza y trabajo en equipo. Trabajamos con emprendedores y pymes que quieren orden, velocidad y resultados."
+                  titulo="Diseño de alto nivel, trato cercano"
+                  texto="Como una manada: estrategia, fuerza y trabajo en equipo. Su negocio tiene un equipo que lo conoce y le responde rápido."
                 />
                 <a href="#contacto" className="boton-primario group mt-8 hidden lg:inline-flex">
                   Hablemos de su negocio
@@ -311,69 +327,8 @@ export default function Inicio() {
           </div>
         </section>
 
-        {/* ───────── Proyectos ───────── */}
-        <section id="proyectos" className="seccion">
-          <div className="contenedor">
-            <Encabezamiento
-              ceja="Proyectos"
-              titulo="Resultados reales"
-              texto="Sistemas que ya están ayudando a organizaciones a trabajar mejor."
-            />
-            <div className="mt-12 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-              {proyectos.map((p) => (
-                <article key={p.titulo} data-revelar className="foco tarjeta overflow-hidden">
-                  <div className="cuadricula relative flex h-48 items-end gap-3 overflow-hidden border-b border-linea bg-noche-800 p-6">
-                    <div
-                      className="absolute -top-10 right-10 h-40 w-40 rounded-full bg-electrico-500/25 blur-3xl"
-                      aria-hidden="true"
-                    />
-                    {[40, 65, 50, 85, 70, 95].map((h, i) => (
-                      <span
-                        key={i}
-                        style={{ height: `${h}%` }}
-                        className="w-full max-w-10 rounded-t-md bg-gradient-to-t from-electrico-600/40 to-electrico-300/80"
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <div className="p-7">
-                    <p className="ceja text-[0.65rem]">{p.categoria}</p>
-                    <h3 className="mt-2 font-display text-xl font-semibold text-balance text-white sm:text-2xl">
-                      {p.titulo}
-                    </h3>
-                    <p className="mt-3 leading-relaxed text-hielo/70">{p.texto}</p>
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {p.etiquetas.map((t) => (
-                        <li key={t} className="rounded-full border border-linea px-3 py-1 font-mono text-xs text-acero">
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              ))}
-              <article
-                data-revelar
-                style={retraso(1)}
-                className="flex flex-col items-start justify-center rounded-2xl border border-dashed border-electrico-400/40 bg-electrico-400/[0.03] p-8"
-              >
-                <span className="grid h-12 w-12 place-items-center rounded-full bg-electrico-400/15 text-electrico-300">
-                  <Icono nombre="mas" className="h-6 w-6" />
-                </span>
-                <h3 className="mt-6 font-display text-2xl font-semibold text-white">¿Su negocio es el siguiente?</h3>
-                <p className="mt-3 leading-relaxed text-hielo/70">
-                  Cuéntenos qué le quita tiempo hoy y le mostramos, sin costo, cómo lo resolveríamos.
-                </p>
-                <a href={enlaceWolf()} target="_blank" rel="noopener noreferrer" className="boton-primario mt-7">
-                  <Icono nombre="mensaje" /> Escriba “Wolf”
-                </a>
-              </article>
-            </div>
-          </div>
-        </section>
-
         {/* ───────── Planes ───────── */}
-        <section id="planes" className="seccion border-t border-linea bg-noche-900">
+        <section id="planes" className="seccion">
           <div className="contenedor">
             <Encabezamiento
               centrado
@@ -424,7 +379,7 @@ export default function Inicio() {
         </section>
 
         {/* ───────── Preguntas frecuentes ───────── */}
-        <section id="preguntas" className="seccion">
+        <section id="preguntas" className="seccion border-t border-linea bg-noche-900">
           <div className="contenedor grid gap-12 lg:grid-cols-[1fr_1.5fr]">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <Encabezamiento
@@ -473,8 +428,8 @@ export default function Inicio() {
             <div>
               <Encabezamiento
                 ceja="Contacto"
-                titulo="¿Listo para ordenar y hacer crecer su negocio?"
-                texto="Cuéntenos su idea. Le respondemos con el siguiente paso concreto y una propuesta sin compromiso."
+                titulo="Cuéntenos de su negocio y le mostramos cómo se vería su página"
+                texto="Le respondemos con una propuesta concreta y sin compromiso."
               />
 
               <a
@@ -524,7 +479,7 @@ export default function Inicio() {
                 </li>
                 <li className="flex items-center gap-4">
                   <Icono nombre="ubicacion" className="h-6 w-6 shrink-0 text-electrico-400" />
-                  {empresa.ubicacion} · Atención presencial y virtual
+                  Escazú, Santa Ana y Belén · Atención presencial y virtual
                 </li>
               </ul>
             </div>

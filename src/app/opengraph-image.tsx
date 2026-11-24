@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 // Imagen que aparece al compartir el enlace en WhatsApp, Facebook, LinkedIn, etc.
-export const alt = "WolfCore Systems — Automatización, apps y sistemas a la medida";
+export const alt = "WolfCore Systems — Páginas web premium para clínicas y negocios de alto nivel";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -30,13 +30,13 @@ export default async function Imagen() {
         <img src={logoSrc} width={421} height={397} style={{ borderRadius: 32 }} alt="" />
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           <span style={{ fontSize: 60, fontWeight: 800, lineHeight: 1.08, color: "#ffffff" }}>
-            Su negocio no necesita más herramientas.
+            Su negocio merece una página
           </span>
           <span style={{ fontSize: 60, fontWeight: 800, lineHeight: 1.15, color: "#38bdf8" }}>
-            Necesita un sistema.
+            a su altura.
           </span>
           <span style={{ marginTop: 32, fontSize: 26, color: "#9fb0c8" }}>
-            Automatización · Apps · Sistemas a la medida · Costa Rica
+            Clínicas · Inmobiliarias · Bufetes · Escazú y Santa Ana
           </span>
         </div>
       </div>

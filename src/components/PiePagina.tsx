@@ -7,17 +7,17 @@ const columnas = [
   {
     titulo: "Servicios",
     enlaces: [
-      ["Automatización", "/#servicios"],
-      ["Chatbots e IA", "/#servicios"],
-      ["Apps web y móviles", "/#servicios"],
-      ["Páginas web", "/#servicios"],
+      ["Páginas web premium", "/#servicios"],
+      ["Citas automáticas", "/#servicios"],
+      ["Atención por WhatsApp", "/#servicios"],
+      ["Sistemas a la medida", "/#servicios"],
     ],
   },
   {
     titulo: "Empresa",
     enlaces: [
+      ["Diseños de muestra", "/#ejemplos"],
       ["Cómo trabajamos", "/#proceso"],
-      ["Proyectos", "/#proyectos"],
       ["Planes", "/#planes"],
       ["Preguntas frecuentes", "/#preguntas"],
     ],

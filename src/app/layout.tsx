@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora", weight: ["600", "700", "800"], display: "swap" });
 
-const titulo = "WolfCore Systems | Automatización, apps y sistemas a la medida en Costa Rica";
+const titulo = "WolfCore Systems | Páginas web premium para clínicas y negocios en Escazú y Santa Ana";
 
 export const metadata: Metadata = {
   metadataBase: new URL(sitioUrl),
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   description: empresa.descripcion,
   applicationName: empresa.nombre,
   keywords: [
-    "desarrollo de software Costa Rica",
-    "automatización de procesos",
-    "chatbot WhatsApp Costa Rica",
-    "sistemas a la medida",
-    "aplicaciones web",
-    "apps móviles",
+    "diseño web Escazú",
+    "páginas web Santa Ana Costa Rica",
+    "página web para clínica estética",
+    "página web para clínica dental",
+    "diseño web inmobiliaria Costa Rica",
+    "citas por WhatsApp",
     "páginas web Costa Rica",
-    "software para pymes",
+    "automatización para clínicas",
   ],
   alternates: { canonical: "/" },
   openGraph: {

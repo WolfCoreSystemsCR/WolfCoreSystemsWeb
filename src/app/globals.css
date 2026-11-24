@@ -46,7 +46,7 @@
     @apply rounded-sm outline-2 outline-offset-4 outline-electrico-400;
   }
   section[id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 4.5rem;
   }
 }
 
@@ -157,6 +157,10 @@
   50% { transform: translate(-46%, 24px) scale(1.06); }
 }
 .orbe { animation: flotar 14s ease-in-out infinite; }
+
+/* Pantalla de entrada: solo con JavaScript y solo si no se vio en esta visita */
+.intro { display: none; }
+.js:not(.sin-intro) .intro { display: flex; }
 
 /* Cursor de la palabra que se escribe en el título */
 @keyframes parpadeo {

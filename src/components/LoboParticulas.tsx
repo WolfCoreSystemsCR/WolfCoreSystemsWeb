@@ -17,8 +17,22 @@ type Anillo = { angulo: number; radio: number; vel: number; tam: number; color: 
  * Lobo de WolfCore hecho de "píxeles": las partículas llegan desde una esfera,
  * forman el lobo y se apartan del cursor. Un anillo de puntos orbita alrededor.
  */
-export function LoboParticulas({ className = "" }: { className?: string }) {
+export function LoboParticulas({
+  className = "",
+  explotar = false,
+  rearmarConIntro = false,
+}: {
+  className?: string;
+  /** Al pasar a true, los píxeles salen disparados hacia afuera y se desvanecen. */
+  explotar?: boolean;
+  /** Vuelve a armar el lobo cuando termina la pantalla de entrada. */
+  rearmarConIntro?: boolean;
+}) {
   const lienzo = useRef<HTMLCanvasElement>(null);
+  const explotarRef = useRef(explotar);
+  useEffect(() => {
+    explotarRef.current = explotar;
+  }, [explotar]);
 
   useEffect(() => {
     const canvas = lienzo.current;
@@ -29,7 +43,7 @@ export function LoboParticulas({ className = "" }: { className?: string }) {
     const reducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let particulas: Particula[] = [];
     let anillo: Anillo[] = [];
-    let ancho = 0, alto = 0, dpr = 1, inicio = 0, cuadro = 0, visible = true;
+    let ancho = 0, alto = 0, dpr = 1, inicio = 0, cuadro = 0, visible = true, explosion = 0;
     const raton = { x: -9999, y: -9999 };
 
     const img = new Image();
@@ -45,8 +59,9 @@ export function LoboParticulas({ className = "" }: { className?: string }) {
 
       // Muestrea la imagen del lobo en una cuadrícula
       const lado = Math.min(ancho, alto) * 0.78;
-      const paso = Math.max(4, Math.round(lado / 62));
-      const n = Math.round(lado / paso);
+      // Misma cantidad de píxeles en cualquier pantalla: en celular son más pequeños, no más gruesos
+      const n = 64;
+      const paso = lado / n;
       const off = document.createElement("canvas");
       off.width = n; off.height = n;
       const octx = off.getContext("2d", { willReadFrequently: true })!;
@@ -96,20 +111,37 @@ export function LoboParticulas({ className = "" }: { className?: string }) {
       const cx = ancho / 2, cy = alto / 2;
       const transcurrido = t - inicio;
 
+      // Explosión: cada píxel sale disparado desde el centro y todo se desvanece
+      if (explotarRef.current && !explosion) {
+        explosion = t;
+        for (const p of particulas) {
+          const dx = p.x - cx, dy = p.y - cy;
+          const d = Math.hypot(dx, dy) || 1;
+          const fuerza = 6 + Math.random() * 14;
+          p.vx = (dx / d) * fuerza + (Math.random() - 0.5) * 4;
+          p.vy = (dy / d) * fuerza + (Math.random() - 0.5) * 4;
+        }
+      }
+      const desvanecer = explosion ? Math.max(0, 1 - (t - explosion) / 900) : 1;
+
       // Anillo inclinado (parte de atrás, más tenue)
       for (const a of anillo) {
-        if (!reducir) a.angulo += a.vel;
+        if (!reducir) a.angulo += explosion ? a.vel * 6 : a.vel;
+        if (explosion) a.radio *= 1.03;
         const s = Math.sin(a.angulo);
         const x = cx + Math.cos(a.angulo) * a.radio;
         const y = cy + s * a.radio * 0.22 + a.y - Math.cos(a.angulo) * a.radio * 0.18;
-        ctx!.globalAlpha = s < 0 ? 0.25 : 0.85;
+        ctx!.globalAlpha = (s < 0 ? 0.25 : 0.85) * desvanecer;
         ctx!.fillStyle = a.color;
         ctx!.fillRect(x, y, a.tam, a.tam);
       }
 
-      ctx!.globalAlpha = 1;
+      ctx!.globalAlpha = desvanecer;
       for (const p of particulas) {
-        if (!reducir && transcurrido > p.retraso) {
+        if (explosion) {
+          p.vx *= 1.04; p.vy *= 1.04;
+          p.x += p.vx; p.y += p.vy;
+        } else if (!reducir && transcurrido > p.retraso) {
           // Resorte hacia el destino + repulsión del cursor
           let fx = (p.tx - p.x) * 0.045, fy = (p.ty - p.y) * 0.045;
           const dx = p.x - raton.x, dy = p.y - raton.y;
@@ -128,16 +160,44 @@ export function LoboParticulas({ className = "" }: { className?: string }) {
         ctx!.fillStyle = p.color;
         ctx!.fillRect(p.x, p.y + resp, p.tam, p.tam);
       }
-      if (!reducir && visible) cuadro = requestAnimationFrame(dibujar);
+      ctx!.globalAlpha = 1;
+      const terminoExplosion = explosion && desvanecer === 0;
+      if ((!reducir || explosion) && visible && !terminoExplosion) cuadro = requestAnimationFrame(dibujar);
     }
 
+    // Devuelve los píxeles a la esfera para que el lobo se arme de nuevo frente al visitante
+    function rearmar() {
+      if (!particulas.length) return;
+      const cx = ancho / 2, cy = alto / 2;
+      const lado = Math.min(ancho, alto) * 0.78;
+      for (const p of particulas) {
+        const th = Math.random() * Math.PI * 2;
+        const rad = lado * (0.55 + Math.random() * 0.25);
+        p.x = cx + Math.cos(th) * rad; p.y = cy + Math.sin(th) * rad * 0.85;
+        p.vx = 0; p.vy = 0;
+      }
+      inicio = performance.now();
+    }
+    const alTerminarIntro = () => { if (rearmarConIntro && !reducir) rearmar(); };
+    window.addEventListener("wcs-intro-fin", alTerminarIntro);
+
     const alMover = (e: PointerEvent) => {
+      // En pantallas táctiles el dedo no debe desarmar el lobo
+      if (e.pointerType !== "mouse") return;
       const r = canvas.getBoundingClientRect();
       raton.x = e.clientX - r.left; raton.y = e.clientY - r.top;
     };
     const alSalir = () => { raton.x = -9999; raton.y = -9999; };
     let temporizador: ReturnType<typeof setTimeout>;
-    const alRedimensionar = () => { clearTimeout(temporizador); temporizador = setTimeout(() => { construir(); if (reducir) dibujar(performance.now()); }, 150); };
+    // En celular la barra del navegador cambia el alto al desplazarse: solo se reconstruye si cambia el ancho
+    const alRedimensionar = () => {
+      clearTimeout(temporizador);
+      temporizador = setTimeout(() => {
+        if (Math.abs(canvas.getBoundingClientRect().width - ancho) < 2) return;
+        construir();
+        if (reducir) dibujar(performance.now());
+      }, 150);
+    };
 
     // Pausa la animación cuando no se ve (ahorra batería)
     const obs = new IntersectionObserver(([e]) => {
@@ -162,8 +222,9 @@ export function LoboParticulas({ className = "" }: { className?: string }) {
       window.removeEventListener("pointermove", alMover);
       canvas.removeEventListener("pointerleave", alSalir);
       window.removeEventListener("resize", alRedimensionar);
+      window.removeEventListener("wcs-intro-fin", alTerminarIntro);
     };
-  }, []);
+  }, [rearmarConIntro]);
 
   return <canvas ref={lienzo} className={className} aria-hidden="true" />;
 }

@@ -74,7 +74,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es-CR" className={`${inter.variable} ${sora.variable}`} suppressHydrationWarning>
       <head>
         {/* Marca que hay JavaScript, para activar animaciones sin ocultar contenido si no lo hay */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');try{if(sessionStorage.getItem('wcs-intro'))document.documentElement.classList.add('sin-intro')}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}

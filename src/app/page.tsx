@@ -4,6 +4,7 @@ import { Encabezado } from "@/components/Encabezado";
 import { EscenaPantallas } from "@/components/EscenaPantallas";
 import { FormularioContacto } from "@/components/FormularioContacto";
 import { Icono } from "@/components/Icono";
+import { IntroLobo } from "@/components/IntroLobo";
 import { LoboParticulas } from "@/components/LoboParticulas";
 import { PalabraRotativa } from "@/components/PalabraRotativa";
 import { PiePagina } from "@/components/PiePagina";
@@ -59,6 +60,7 @@ export default function Inicio() {
       >
         Saltar al contenido
       </a>
+      <IntroLobo />
       <Encabezado />
       <EfectosPagina />
 
@@ -118,7 +120,7 @@ export default function Inicio() {
             </div>
 
             <div className="relative order-1 mx-auto -mb-4 aspect-square w-full max-w-[13rem] sm:max-w-[26rem] lg:order-2 lg:mb-0 lg:max-w-none">
-              <LoboParticulas className="h-full w-full" />
+              <LoboParticulas className="h-full w-full" rearmarConIntro />
             </div>
           </div>
 

@@ -59,22 +59,27 @@ export function Encabezado() {
         conFondo || abierto ? "border-linea/80 bg-noche-950/85 backdrop-blur-xl" : "border-transparent"
       }`}
     >
-      <div className="contenedor flex h-20 items-center justify-between gap-4">
-        <a href="#inicio" aria-label="WolfCore Systems, ir al inicio" className="transition-opacity hover:opacity-85">
+      {/* Tres columnas iguales: logo a la izquierda, menú centrado de verdad, botones a la derecha */}
+      <div className="contenedor grid h-16 grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
+        <a
+          href="#inicio"
+          aria-label="WolfCore Systems, ir al inicio"
+          className="flex items-center justify-self-start rounded-md transition-opacity hover:opacity-85"
+        >
           <Logo />
         </a>
 
         <nav aria-label="Principal" className="hidden lg:block">
-          <ul className="flex items-center gap-1 rounded-full border border-linea/70 bg-noche-900/60 p-1 text-[0.95rem] font-medium backdrop-blur">
+          <ul className="flex h-10 items-center gap-0.5 rounded-full border border-linea/70 bg-noche-900/60 p-1 text-sm font-medium backdrop-blur">
             {enlaces.map((e) => (
               <li key={e.id}>
                 <a
                   href={`#${e.id}`}
                   aria-current={activo === e.id ? "true" : undefined}
-                  className={`block rounded-full px-4 py-2 transition-colors ${
+                  className={`flex h-8 items-center rounded-full px-3.5 transition-colors ${
                     activo === e.id
                       ? "bg-electrico-400/15 text-electrico-200"
-                      : "text-hielo/75 hover:bg-white/5 hover:text-white"
+                      : "text-hielo/70 hover:bg-white/5 hover:text-white"
                   }`}
                 >
                   {e.texto}
@@ -84,24 +89,32 @@ export function Encabezado() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a href="#contacto" className="boton-borde min-h-11 px-5 py-2">
-            Contacto
+        <div className="hidden items-center justify-self-end gap-2 lg:flex">
+          <a
+            href="#contacto"
+            className="inline-flex h-9 items-center gap-2 rounded-lg border border-hielo/15 bg-white/[0.03] px-3.5 text-sm font-semibold text-hielo transition-colors hover:border-electrico-400/60 hover:bg-electrico-400/10 hover:text-white"
+          >
+            <Icono nombre="correo" className="h-4 w-4 text-electrico-300" /> Contacto
           </a>
-          <a href={enlaceWolf()} target="_blank" rel="noopener noreferrer" className="boton-primario min-h-11 px-5 py-2">
-            <Icono nombre="mensaje" /> Escríbanos
+          <a
+            href={enlaceWolf()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-electrico-400 px-3.5 text-sm font-semibold text-noche-950 shadow-[0_0_0_1px_rgb(125_211_252/0.4),0_6px_20px_-8px_rgb(56_189_248/0.7)] transition-colors hover:bg-electrico-300"
+          >
+            <Icono nombre="mensaje" className="h-4 w-4" /> Escríbanos
           </a>
         </div>
 
         <button
           type="button"
-          className="grid h-12 w-12 place-items-center rounded-lg border border-linea text-hielo transition-colors hover:border-electrico-400/60 lg:hidden"
+          className="grid h-10 w-10 place-items-center justify-self-end rounded-lg border border-linea text-hielo transition-colors hover:border-electrico-400/60 lg:hidden"
           aria-expanded={abierto}
           aria-controls="menu-movil"
           aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setAbierto((v) => !v)}
         >
-          <Icono nombre={abierto ? "cerrar" : "menu"} className="h-6 w-6" />
+          <Icono nombre={abierto ? "cerrar" : "menu"} className="h-5 w-5" />
         </button>
       </div>
 
@@ -109,7 +122,7 @@ export function Encabezado() {
         id="menu-movil"
         aria-label="Menú móvil"
         hidden={!abierto}
-        className="h-[calc(100dvh-5rem)] overflow-y-auto border-t border-linea bg-noche-950 lg:hidden"
+        className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-linea bg-noche-950 lg:hidden"
       >
         <ul className="contenedor flex flex-col gap-1 py-6">
           {enlaces.map((e) => (

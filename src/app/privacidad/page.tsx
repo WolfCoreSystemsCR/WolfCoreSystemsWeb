@@ -14,11 +14,14 @@ export default function Privacidad() {
   return (
     <>
       <header className="border-b border-linea">
-        <div className="contenedor flex h-20 items-center justify-between">
+        <div className="contenedor flex h-16 items-center justify-between">
           <a href="/" aria-label="WolfCore Systems, volver al inicio">
             <Logo />
           </a>
-          <a href="/" className="boton-borde min-h-11 py-2">
+          <a
+            href="/"
+            className="inline-flex h-9 items-center rounded-lg border border-hielo/15 bg-white/[0.03] px-3.5 text-sm font-semibold text-hielo transition-colors hover:border-electrico-400/60 hover:text-white"
+          >
             Volver al inicio
           </a>
         </div>

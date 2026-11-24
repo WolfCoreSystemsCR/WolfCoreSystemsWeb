@@ -501,6 +501,12 @@ export default function Inicio() {
 
               <ul data-revelar className="mt-8 space-y-5 text-hielo/85">
                 <li className="flex items-center gap-4">
+                  <Icono nombre="mensaje" className="h-6 w-6 shrink-0 text-electrico-400" />
+                  <a href={enlaceWolf()} target="_blank" rel="noopener noreferrer" className="hover:text-electrico-300">
+                    WhatsApp {empresa.telefono}
+                  </a>
+                </li>
+                <li className="flex items-center gap-4">
                   <Icono nombre="correo" className="h-6 w-6 shrink-0 text-electrico-400" />
                   <a href={`mailto:${empresa.correo}`} className="break-all hover:text-electrico-300">
                     {empresa.correo}

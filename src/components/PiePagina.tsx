@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Icono } from "./Icono";
 import logoCompleto from "../../public/img/logo-wolfcore.png";
-import { empresa } from "@/lib/empresa";
+import { empresa, enlaceWolf } from "@/lib/empresa";
 
 const columnas = [
   {
@@ -68,6 +68,11 @@ export function PiePagina() {
         <div>
           <p className="font-display font-semibold text-white">Contacto</p>
           <ul className="mt-4 space-y-3 text-acero">
+            <li>
+              <a href={enlaceWolf()} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-electrico-300">
+                WhatsApp {empresa.telefono}
+              </a>
+            </li>
             <li>
               <a href={`mailto:${empresa.correo}`} className="break-all transition-colors hover:text-electrico-300">
                 {empresa.correo}

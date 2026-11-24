@@ -11,8 +11,10 @@ export const empresa = {
   instagramUsuario: "@wolfcoresystems",
   instagramMensaje: "https://ig.me/m/wolfcoresystems",
   correo: "wolfcoresystemscr@gmail.com",
-  // [CONFIRMAR] Número de WhatsApp con código de país, solo dígitos. Ej: "50688887777".
-  whatsapp: "",
+  // Número de WhatsApp con código de país, solo dígitos.
+  whatsapp: "50662966167",
+  // Mismo número, como se muestra a las personas.
+  telefono: "+506 6296-6167",
   ubicacion: "Costa Rica",
   // [CONFIRMAR] Horario de atención.
   horario: "Lunes a viernes, 8:00 a. m. – 6:00 p. m.",

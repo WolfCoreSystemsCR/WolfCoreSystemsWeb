@@ -10,5 +10,8 @@ next-env.d.ts
 npm-debug.log*
 .DS_Store
 
+# Documentos comerciales internos (precios, cotizaciones): no se publican
+documentos/
+
 .vercel
 .env*.local

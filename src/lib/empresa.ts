@@ -20,8 +20,12 @@ export const empresa = {
   horario: "Lunes a viernes, 8:00 a. m. – 6:00 p. m.",
 };
 
-/** URL pública del sitio (para SEO). En Vercel, defina NEXT_PUBLIC_SITIO_URL. */
-export const sitioUrl = (process.env.NEXT_PUBLIC_SITIO_URL?.trim() || "http://localhost:3000").replace(/\/$/, "");
+/**
+ * URL pública del sitio (para SEO). En Vercel, defina NEXT_PUBLIC_SITIO_URL.
+ * Si falta, se usa el dominio de producción: un respaldo a localhost publicaría
+ * URL canónicas, sitemap y Open Graph apuntando a localhost.
+ */
+export const sitioUrl = (process.env.NEXT_PUBLIC_SITIO_URL?.trim() || "https://wolfcoresystems.vercel.app").replace(/\/$/, "");
 
 /** Enlace para escribir "Wolf": WhatsApp si hay número; si no, mensaje directo de Instagram. */
 export function enlaceWolf(): string {

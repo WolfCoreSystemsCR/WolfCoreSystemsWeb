@@ -1,0 +1,87 @@
+---
+description: This document contains all development rules and guidelines for this project, applicable to all AI agents (Claude, Cursor, Codex, Gemini, etc.).
+alwaysApply: true
+---
+
+## 0. Project at a glance
+
+WolfCore Systems marketing site: services, live design demos (`/ejemplos/*`, shown inside an iframe showcase) and a contact form. Next.js 16 (App Router) + React 19 + Tailwind CSS 4 + TypeScript (strict), deployed on Vercel. No database: content lives in `src/lib/empresa.ts`, the contact form posts to one API route (`/api/contacto`) that emails through Resend.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+## 1. Core Principles
+
+- **Small tasks, one at a time**: Always work in baby steps, one at a time. Never go forward more than one step.
+- **Test-Driven Development**: Start with failing tests for any new logic (TDD). Unit tests use Vitest (`npm test`); keep business logic in `src/lib/` so it can be tested without React.
+- **Type Safety**: All code must be fully typed.
+- **Clear Naming**: Use clear, descriptive names for all variables and functions.
+- **Incremental Changes**: Prefer incremental, focused changes over large, complex modifications.
+- **Question Assumptions**: Always question assumptions and inferences.
+- **Pattern Detection**: Detect and highlight repeated code patterns.
+
+## 2. Language Standards
+
+This project has two audiences, so it uses two languages. Keep the existing split; do not translate existing code.
+
+- **Spanish (Costa Rica)** — this is the established convention of the codebase:
+    - All user-facing copy, formal "usted" form (labels, errors shown to customers, WhatsApp messages, metadata).
+    - Code identifiers that model the domain or UI (`empresa`, `servicios`, `FormularioContacto`, `enlaceWolf`), matching existing files.
+    - Code comments and server log messages, matching existing files.
+- **English**:
+    - Technical documentation in `docs/`, `ai-specs/` and OpenSpec artifacts.
+    - Test names and descriptions.
+    - Git commit messages and pull request descriptions.
+    - Configuration files and scripts.
+- Framework names and Next.js conventions (`generateMetadata`, `runtime`, `page.tsx`) stay as the framework defines them.
+
+## 3. Specific standards
+
+For detailed standards and guidelines specific to different areas of the project, refer to:
+
+- [Backend Standards](./backend-standards.md) - Next.js route handlers, validation, security and testing for the server side
+- [Frontend Standards](./frontend-standards.md) - App Router structure, Server/Client Components, Tailwind, accessibility and SEO
+- [Documentation Standards](./documentation-standards.md) - Technical documentation structure, formatting, and maintenance guidelines, including AI standards like this document
+- [Development Guide](./development_guide.md) - Local setup, environment variables, scripts, testing and deployment
+- [Data Model](./data-model.md) - Site content and contact form types (no database)
+- [API Spec](./api-spec.yml) - OpenAPI spec of `/api/contacto`
+- [OpenSpec Tasks Mandatory Steps](./openspec-tasks-mandatory-steps.md) - Required checklist and execution rules when creating or updating OpenSpec `tasks.md` files
+
+## 4. Project Skills
+
+- Skills live in `ai-specs/skills`.
+- When a request matches a skill, load and follow the corresponding `SKILL.md` automatically before continuing.
+- Also load any referenced files in the skill folder (for example, `references/*.md`) when the skill requires them.
+
+## 5. Planning Model Requirement
+
+Planning workflows (`enrich-us`, `openspec-propose`, `openspec-ff-change`, `openspec-continue-change`) should run with the most capable Opus model available and high reasoning. If the session runs a smaller model, say so before planning. Do not edit `.claude/settings.json` to change the model without the user's approval.
+
+## 6. Agent folders and Windows (real files, no symlinks)
+
+The repository is used on Windows, where Git defaults to `core.symlinks=false` and checks symlinks out as plain text files. Therefore agent entry points and folders are **real files**:
+
+- `CLAUDE.md`, `GEMINI.md` and `codex.md` contain `@docs/base-standards.md` (an import Claude Code resolves) plus a short note. `AGENTS.md` is a real file that points here.
+- `.claude/skills/`, `.claude/agents/`, `.cursor/skills/` and `.cursor/agents/` are **copies** of `ai-specs/skills/`, `ai-specs/agents/` and the OpenSpec skills in `.agents/skills/`.
+- `ai-specs/` stays the canonical source. When a skill or agent changes there, copy it again into every agent folder in the same change. A change that leaves copies out of sync is incomplete.
+
+## 7. Mandatory OpenSpec Artifact Updates for Post-Apply Changes
+
+When a new fix/change request appears after `opsx:apply` (or `/apply`) and before `opsx:archive` (or `/archive`), agents must treat it as a spec update first, not as an informal "fix this quickly". It's the core principle of openspec, documentation is the source of truth.
+
+Required order:
+
+1. Update the current OpenSpec change artifacts that are affected (for example: scenarios, requirements/specs, and `tasks.md`). Don't add tasks as "bugfixes" but as part of the initial design, thus in the proper section
+2. If artifact regeneration is needed, run the corresponding OpenSpec step (`opsx:continue`, `opsx:ff`, or equivalent) before coding.
+3. Implement code only after artifacts reflect the new request.
+4. Re-run verification against the updated artifacts before archiving.
+
+Do not apply direct code-only fixes in this window without updating OpenSpec artifacts.
+

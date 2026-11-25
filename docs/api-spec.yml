@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: WolfCore Systems site API
+  version: 0.1.0
+  description: |
+    The site has a single API route. Implementation: src/app/api/contacto/route.ts
+servers:
+  - url: https://wolfcoresystems.vercel.app
+  - url: http://localhost:3000
+paths:
+  /api/contacto:
+    post:
+      summary: Send a contact message by email
+      description: |
+        Validates the message and emails it to CONTACTO_PARA through Resend (reply-to = visitor email).
+        Checks in order: same-origin `Origin`, JSON content type, declared size ≤ 8 KB,
+        at most 5 requests per IP per 10 minutes (per server instance), streamed body ≤ 8 KB, JSON object.
+        Bot submissions (filled `sitio_web` or `tiempo` < 3000 ms) get a fake 200 and are not sent.
+      operationId: enviarContacto
+      parameters:
+        - in: header
+          name: Origin
+          required: true
+          schema: { type: string }
+          description: Must match the request host or NEXT_PUBLIC_SITIO_URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Contacto" }
+      responses:
+        "200":
+          description: Message sent (or bot submission silently accepted).
+          content:
+            application/json:
+              schema: { type: object, properties: { ok: { type: boolean, const: true } } }
+        "400":
+          description: Malformed JSON, invalid fields or missing consent.
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+        "403":
+          description: Origin not allowed.
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+        "413":
+          description: Body larger than 8 KB.
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+        "415":
+          description: Content-Type is not application/json.
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+        "429":
+          description: Too many requests from this IP.
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+        "502":
+          description: Resend failed or timed out.
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+        "503":
+          description: Email not configured (RESEND_API_KEY, CONTACTO_PARA or CONTACTO_DESDE missing).
+          content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
+components:
+  schemas:
+    Contacto:
+      type: object
+      required: [nombre, correo, mensaje, consentimiento]
+      properties:
+        nombre: { type: string, minLength: 2, maxLength: 100 }
+        correo: { type: string, format: email, maxLength: 150 }
+        negocio: { type: string, maxLength: 120 }
+        telefono: { type: string, maxLength: 20 }
+        servicio: { type: string, description: "One of opcionesServicio in src/lib/empresa.ts; otherwise ignored" }
+        mensaje: { type: string, minLength: 10, maxLength: 2000 }
+        consentimiento: { type: boolean, const: true }
+        sitio_web: { type: string, description: "Honeypot. Must be empty." }
+        tiempo: { type: number, description: "Milliseconds the form was open. Must be ≥ 3000." }
+    Error:
+      type: object
+      properties:
+        mensaje: { type: string, description: "Spanish message safe to show to the visitor" }

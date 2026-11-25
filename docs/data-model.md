@@ -13,7 +13,7 @@ The site has **no database**. Content is static TypeScript in `src/lib/empresa.t
 | `telefono` | Display format |
 | `ubicacion`, `horario` | `horario` marked `[CONFIRMAR]` |
 
-Derived: `sitioUrl` (from `NEXT_PUBLIC_SITIO_URL`, default `https://wolfcoresystems.vercel.app`), `enlaceWolf()`, `canalWolf`.
+Derived: `sitioUrl` (from `NEXT_PUBLIC_SITIO_URL`, default `https://wolfcoresystems-three.vercel.app`), `enlaceWolf()`, `canalWolf`.
 
 ## 2. Content collections
 

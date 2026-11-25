@@ -5,7 +5,7 @@ info:
   description: |
     The site has a single API route. Implementation: src/app/api/contacto/route.ts
 servers:
-  - url: https://wolfcoresystems.vercel.app
+  - url: https://wolfcoresystems-three.vercel.app
   - url: http://localhost:3000
 paths:
   /api/contacto:

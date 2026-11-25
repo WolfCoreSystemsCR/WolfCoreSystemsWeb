@@ -16,11 +16,11 @@ const valido = {
 let ip = 0;
 function solicitud(cuerpo: unknown, headers: Record<string, string> = {}) {
   ip += 1;
-  return new Request("https://wolfcoresystems.vercel.app/api/contacto", {
+  return new Request("https://wolfcoresystems-three.vercel.app/api/contacto", {
     method: "POST",
     headers: {
-      host: "wolfcoresystems.vercel.app",
-      origin: "https://wolfcoresystems.vercel.app",
+      host: "wolfcoresystems-three.vercel.app",
+      origin: "https://wolfcoresystems-three.vercel.app",
       "content-type": "application/json",
       "x-real-ip": `10.0.0.${ip}`,
       ...headers,

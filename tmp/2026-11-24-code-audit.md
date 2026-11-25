@@ -18,7 +18,7 @@ Two defects fixed, one quality gap closed.
 - **Where:** `src/lib/empresa.ts` (`sitioUrl`).
 - **Problem:** without `NEXT_PUBLIC_SITIO_URL`, `metadataBase`, canonical, Open Graph, sitemap and robots pointed to
   `http://localhost:3000`. A missing variable in a Vercel environment would publish broken canonical URLs silently.
-- **Fix:** fall back to `https://wolfcoresystems.vercel.app` (same value as `.env.example`). If the variable is set,
+- **Fix:** fall back to `https://wolfcoresystems-three.vercel.app` (same value as `.env.example`). If the variable is set,
   nothing changes. Test: `src/lib/empresa.test.ts`.
 
 ### 2. Low — Showcase shows no loading state when switching device mode

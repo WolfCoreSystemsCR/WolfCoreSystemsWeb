@@ -17,7 +17,7 @@ npm run dev        # http://localhost:3000
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITIO_URL` | Recommended | Public domain for metadata, sitemap, OG and the form origin check. Defaults to `https://wolfcoresystems.vercel.app` |
+| `NEXT_PUBLIC_SITIO_URL` | Recommended | Public domain for metadata, sitemap, OG and the form origin check. Defaults to `https://wolfcoresystems-three.vercel.app` |
 | `RESEND_API_KEY` | For the form | Without it the form answers 503 and shows email/WhatsApp alternatives |
 | `CONTACTO_PARA` | For the form | Inbox that receives messages |
 | `CONTACTO_DESDE` | For the form | Sender verified in Resend |

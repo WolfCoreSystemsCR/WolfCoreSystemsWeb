@@ -25,7 +25,7 @@ export const empresa = {
  * Si falta, se usa el dominio de producción: un respaldo a localhost publicaría
  * URL canónicas, sitemap y Open Graph apuntando a localhost.
  */
-export const sitioUrl = (process.env.NEXT_PUBLIC_SITIO_URL?.trim() || "https://wolfcoresystems.vercel.app").replace(/\/$/, "");
+export const sitioUrl = (process.env.NEXT_PUBLIC_SITIO_URL?.trim() || "https://wolfcoresystems-three.vercel.app").replace(/\/$/, "");
 
 /** Enlace para escribir "Wolf": WhatsApp si hay número; si no, mensaje directo de Instagram. */
 export function enlaceWolf(): string {
